@@ -1,8 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
-# Using SQLite for simplicity and easy setup
 import os
 # Get database URL from environment variable or use default
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./finance_tracker.db")

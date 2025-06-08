@@ -1,9 +1,3 @@
-"""
-Database migration script - Set up the initial database schema
-
-This script sets up the initial database schema for the Personal Finance Tracker.
-It creates tables and adds some initial data.
-"""
 import os
 import sys
 from pathlib import Path
@@ -75,7 +69,7 @@ def seed_initial_data():
 
             # Add sample transactions
             categories = db.query(Category).filter(Category.user_id == demo_user.id).all()
-            cat_dict = {cat.name: cat for cat in categories}
+            cat_dict = {str(cat.name): cat for cat in categories}
 
             sample_transactions = [
                 {
