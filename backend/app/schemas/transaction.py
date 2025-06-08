@@ -1,11 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+import datetime
 
 class TransactionBase(BaseModel):
     amount: float
     description: Optional[str] = None
-    date: Optional[date] = None
+    date: Optional[datetime.date] = None
     type: str  # income or expense
     category_id: Optional[int] = None
     currency: Optional[str] = "INR"
