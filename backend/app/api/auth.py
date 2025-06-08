@@ -10,9 +10,10 @@ from app.schemas.user import UserCreate, User as UserSchema
 from typing import Optional
 
 # Security configurations
-SECRET_KEY = "a_very_secret_key_replace_in_production"  # for demo only
+import os
+SECRET_KEY = os.getenv("SECRET_KEY", "a_very_secret_key_replace_in_production")  # use env variable in production
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -75,7 +76,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
+        email = payload.get("sub")
         if email is None:
             raise credentials_exception
     except JWTError:
